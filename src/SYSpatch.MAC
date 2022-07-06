@@ -1,0 +1,45 @@
+ .nlist
+PAGE_SIZE	equ	(8*1024)
+
+MPUTYPE		equ	$00000CBC
+
+LABWORK		equ	$00002000	* ブート時のマッピング先
+PABWORK		equ	$00E70000	* ブート時 $2000～$3FFF にマッピング
+
+MTBL_OFS	equ	$FA00		* TIA/TIBオフセット
+MTBL_TIC	equ	$00004000	* TIC物理アドレス
+BF64K		equ	$00E10000	* T0後半
+
+SRAM_TOP	equ	$00ED2000	* SRAM インストール開始アドレス
+SRAM_BOOT	equ	$00ED0010	* SRAM ブートアドレス
+BOOT_DEVICE	equ	$00ED0018	* 優先ブートデバイス
+SRAM_MODE	equ	$00ED002D	* SRAM 使用モード
+SCSIFLAG	equ	$00ED0070
+POOON		equ	$00ED0091
+
+WAIT_PORT	equ	$00E8E009	* ウェイト制御
+SRAM_SW		equ	$00E8E00D	* SRAM 書き込み制御
+
+BOOT_V215	equ	$00FF033C	* Human68k v2.15 ブートエントリ
+BOOT_2HD	equ	$00FF03CE	* 2HD ブートエントリ
+BOOT_ROM	equ	$00FF03DE	* ROM(STD) ブートエントリ
+PMEM_MAX	equ	$01000000
+
+ROMDB_TOP	equ	$00FD2000
+ROMDB_LEN	equ	$00012000
+ROMDB_INST	equ	$00FF0008
+ROM_TOP		equ	$00FF0000
+
+Hu_chk		equ	$681F		* 奇数だぞ
+Hu_MEMMAX	equ	$1C00
+OP_JMP		equ	$4EF9
+OP_JSR		equ	$4EB9
+
+SRAM_WE		macro
+		move.b	#$31,SRAM_SW
+		endm
+
+SRAM_WP		macro
+		clr.b	SRAM_SW
+		endm
+ .list
